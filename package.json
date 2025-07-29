@@ -1,0 +1,14 @@
+{
+  "name": "randomusertools",
+  "version": "1.0.0",
+  "description": "Random user data generator for testing and development",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static site, no build needed'",
+    "start": "vercel dev"
+  },
+  "keywords": ["random", "user", "generator", "testing", "api"],
+  "author": "Your Name",
+  "license": "MIT"
+}
