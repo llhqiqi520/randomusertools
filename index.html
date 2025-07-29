@@ -16,7 +16,42 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
      crossorigin="anonymous"></script>
     
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+    
     <style>
+        :root {
+            --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --bg-card: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --text-primary: #333333;
+            --text-secondary: #555555;
+            --text-muted: #666666;
+            --border-color: #e1e5e9;
+            --border-hover: #667eea;
+            --shadow: 0 20px 40px rgba(0,0,0,0.1);
+            --shadow-hover: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        [data-theme="dark"] {
+            --bg-primary: linear-gradient(135deg, #2d1b69 0%, #11998e 100%);
+            --bg-card: #1a1a1a;
+            --bg-secondary: #2d2d30;
+            --text-primary: #ffffff;
+            --text-secondary: #e1e1e1;
+            --text-muted: #b0b0b0;
+            --border-color: #404040;
+            --border-hover: #667eea;
+            --shadow: 0 20px 40px rgba(0,0,0,0.3);
+            --shadow-hover: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -25,9 +60,10 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--bg-primary);
             min-height: 100vh;
-            color: #333;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
         }
         
         .container {
@@ -43,10 +79,36 @@
             position: relative;
         }
         
-        .language-selector {
+        .header-controls {
             position: absolute;
             top: 0;
             right: 0;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .language-selector {
             background: rgba(255, 255, 255, 0.2);
             border-radius: 20px;
             padding: 8px;
@@ -79,12 +141,44 @@
             opacity: 0.9;
         }
         
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+        
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .page-section {
+            display: none;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+        
         .main-card {
-            background: white;
+            background: var(--bg-card);
             border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
             margin-bottom: 30px;
+            transition: all 0.3s ease;
         }
         
         .controls {
@@ -102,27 +196,29 @@
         .control-group label {
             font-weight: 600;
             margin-bottom: 8px;
-            color: #555;
+            color: var(--text-secondary);
         }
         
         .control-group select,
         .control-group input {
             padding: 12px;
-            border: 2px solid #e1e5e9;
+            border: 2px solid var(--border-color);
             border-radius: 10px;
             font-size: 16px;
             transition: border-color 0.3s ease;
+            background: var(--bg-card);
+            color: var(--text-primary);
         }
         
         .control-group select:focus,
         .control-group input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--border-hover);
         }
         
         .field-selector {
-            background: #f8f9fa;
-            border: 2px solid #e1e5e9;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
             border-radius: 10px;
             padding: 15px;
             margin-top: 8px;
@@ -132,7 +228,7 @@
             display: flex;
             align-items: center;
             padding: 8px 0;
-            border-bottom: 1px solid #e9ecef;
+            border-bottom: 1px solid var(--border-color);
         }
         
         .field-item:last-child {
@@ -149,7 +245,7 @@
         
         .field-item label {
             font-weight: 400;
-            color: #333;
+            color: var(--text-primary);
             cursor: pointer;
             flex: 1;
             margin-bottom: 0;
@@ -162,7 +258,7 @@
             padding: 8px 8px;
         }
         
-        .generate-btn {
+        .generate-btn, .primary-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
@@ -176,12 +272,12 @@
             margin: 0 auto 30px;
         }
         
-        .generate-btn:hover {
+        .generate-btn:hover, .primary-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            box-shadow: var(--shadow-hover);
         }
         
-        .generate-btn:active {
+        .generate-btn:active, .primary-btn:active {
             transform: translateY(0);
         }
         
@@ -195,7 +291,7 @@
         }
         
         .user-card {
-            background: #f8f9fa;
+            background: var(--bg-secondary);
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 20px;
@@ -225,7 +321,7 @@
         .user-name {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #333;
+            color: var(--text-primary);
             margin-bottom: 5px;
         }
         
@@ -244,16 +340,16 @@
             display: flex;
             justify-content: space-between;
             padding: 10px 0;
-            border-bottom: 1px solid #e1e5e9;
+            border-bottom: 1px solid var(--border-color);
         }
         
         .detail-label {
             font-weight: 600;
-            color: #555;
+            color: var(--text-secondary);
         }
         
         .detail-value {
-            color: #333;
+            color: var(--text-primary);
             text-align: right;
         }
         
@@ -261,7 +357,7 @@
             text-align: center;
             margin-top: 30px;
             padding-top: 30px;
-            border-top: 2px solid #e1e5e9;
+            border-top: 2px solid var(--border-color);
         }
         
         .export-btn {
@@ -283,15 +379,15 @@
         .ad-container {
             margin: 30px auto;
             text-align: center;
-            background: #f8f9fa;
+            background: var(--bg-secondary);
             padding: 20px;
             border-radius: 10px;
-            border: 1px solid #e1e5e9;
+            border: 1px solid var(--border-color);
         }
         
         .ad-label {
             font-size: 12px;
-            color: #666;
+            color: var(--text-muted);
             margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -316,6 +412,111 @@
         
         .footer a:hover {
             text-decoration: underline;
+        }
+        
+        .faq-item {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        
+        .faq-question {
+            background: none;
+            border: none;
+            width: 100%;
+            padding: 20px;
+            text-align: left;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background: rgba(102, 126, 234, 0.05);
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding: 20px;
+        }
+        
+        .faq-item.active .faq-question::after {
+            transform: rotate(180deg);
+        }
+        
+        .faq-question::after {
+            content: '▼';
+            transition: transform 0.3s ease;
+            font-size: 12px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: var(--bg-secondary);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        
+        .content-section {
+            margin-bottom: 40px;
+        }
+        
+        .content-section h2 {
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .content-section p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .content-section ul {
+            margin-left: 20px;
+            color: var(--text-secondary);
+        }
+        
+        .content-section li {
+            margin-bottom: 8px;
+            line-height: 1.6;
         }
         
         @media (max-width: 768px) {
@@ -374,10 +575,20 @@
                 margin-top: 5px;
             }
             
-            .language-selector {
+            .header-controls {
                 position: static;
+                justify-content: center;
                 margin-bottom: 20px;
-                display: inline-block;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .nav-item {
+                padding: 8px 15px;
+                font-size: 14px;
             }
         }
         
@@ -389,144 +600,294 @@
             margin: 20px 0;
             border: 1px solid #f5c6cb;
         }
+        
+        [data-theme="dark"] .error {
+            background: #2d1b1f;
+            color: #f8d7da;
+            border-color: #721c24;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <div class="language-selector">
-                <select id="language-select" onchange="changeLanguage()">
-                    <option value="en">🇺🇸 English</option>
-                    <option value="zh">🇨🇳 中文</option>
-                    <option value="es">🇪🇸 Español</option>
-                    <option value="fr">🇫🇷 Français</option>
-                    <option value="de">🇩🇪 Deutsch</option>
-                    <option value="ja">🇯🇵 日本語</option>
-                    <option value="ko">🇰🇷 한국어</option>
-                    <option value="pt">🇧🇷 Português</option>
-                    <option value="ru">🇷🇺 Русский</option>
-                    <option value="ar">🇸🇦 العربية</option>
-                </select>
+            <div class="header-controls">
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+                    <span id="theme-icon">🌙</span>
+                </button>
+                <div class="language-selector">
+                    <select id="language-select" onchange="changeLanguage()">
+                        <option value="en">🇺🇸 English</option>
+                        <option value="zh">🇨🇳 中文</option>
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="fr">🇫🇷 Français</option>
+                        <option value="de">🇩🇪 Deutsch</option>
+                        <option value="ja">🇯🇵 日本語</option>
+                        <option value="ko">🇰🇷 한국어</option>
+                        <option value="pt">🇧🇷 Português</option>
+                        <option value="ru">🇷🇺 Русский</option>
+                        <option value="ar">🇸🇦 العربية</option>
+                    </select>
+                </div>
             </div>
             <h1 data-translate="title">Random User Generator</h1>
             <p data-translate="subtitle">Generate realistic user data for testing and development</p>
+            
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" onclick="showPage('generator')" data-translate="navGenerator">Generator</a>
+                <a href="#" class="nav-item" onclick="showPage('faq')" data-translate="navFAQ">FAQ</a>
+                <a href="#" class="nav-item" onclick="showPage('privacy')" data-translate="navPrivacy">Privacy</a>
+                <a href="#" class="nav-item" onclick="showPage('about')" data-translate="navAbout">About</a>
+            </nav>
         </header>
         
-        <!-- Top Banner Ad -->
-        <div class="ad-container">
-            <div class="ad-label" data-translate="advertisement">Advertisement</div>
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                 data-ad-slot="1234567890"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-        </div>
-        
-        <main class="main-card">
-            <div class="controls">
-                <div class="control-group">
-                    <label for="results-count" data-translate="numberOfUsers">Number of Users</label>
-                    <input type="number" id="results-count" min="1" max="50" value="5">
-                </div>
-                
-                <div class="control-group">
-                    <label for="gender" data-translate="gender">Gender</label>
-                    <select id="gender">
-                        <option value="" data-translate="random">Random</option>
-                        <option value="male" data-translate="male">Male</option>
-                        <option value="female" data-translate="female">Female</option>
-                    </select>
-                </div>
-                
-                <div class="control-group">
-                    <label for="nationality" data-translate="nationality">Nationality</label>
-                    <select id="nationality">
-                        <option value="" data-translate="random">Random</option>
-                        <option value="AU">Australia</option>
-                        <option value="BR">Brazil</option>
-                        <option value="CA">Canada</option>
-                        <option value="CH">Switzerland</option>
-                        <option value="DE">Germany</option>
-                        <option value="DK">Denmark</option>
-                        <option value="ES">Spain</option>
-                        <option value="FI">Finland</option>
-                        <option value="FR">France</option>
-                        <option value="GB">Great Britain</option>
-                        <option value="IE">Ireland</option>
-                        <option value="IN">India</option>
-                        <option value="IR">Iran</option>
-                        <option value="MX">Mexico</option>
-                        <option value="NL">Netherlands</option>
-                        <option value="NO">Norway</option>
-                        <option value="NZ">New Zealand</option>
-                        <option value="RS">Serbia</option>
-                        <option value="TR">Turkey</option>
-                        <option value="UA">Ukraine</option>
-                        <option value="US">United States</option>
-                    </select>
-                </div>
-                
-                <div class="control-group">
-                    <label data-translate="includeFields">Include Fields</label>
-                    <div class="field-selector">
-                        <div class="field-item">
-                            <input type="checkbox" id="field-name" checked>
-                            <label for="field-name" data-translate="name">Name</label>
-                        </div>
-                        <div class="field-item">
-                            <input type="checkbox" id="field-email" checked>
-                            <label for="field-email" data-translate="email">Email</label>
-                        </div>
-                        <div class="field-item">
-                            <input type="checkbox" id="field-phone" checked>
-                            <label for="field-phone" data-translate="phone">Phone</label>
-                        </div>
-                        <div class="field-item">
-                            <input type="checkbox" id="field-location" checked>
-                            <label for="field-location" data-translate="location">Location</label>
-                        </div>
-                        <div class="field-item">
-                            <input type="checkbox" id="field-picture" checked>
-                            <label for="field-picture" data-translate="picture">Picture</label>
-                        </div>
-                        <div class="field-item">
-                            <input type="checkbox" id="field-dob" checked>
-                            <label for="field-dob" data-translate="dateOfBirth">Date of Birth</label>
-                        </div>
-                        <div class="field-item">
-                            <input type="checkbox" id="field-login">
-                            <label for="field-login" data-translate="loginInfo">Login Info</label>
-                        </div>
-                        <div class="field-item">
-                            <input type="checkbox" id="field-id">
-                            <label for="field-id" data-translate="idNumbers">ID Numbers</label>
+        <!-- Generator Page -->
+        <div id="generator-page" class="page-section active">
+            <!-- Top Banner Ad -->
+            <div class="ad-container">
+                <div class="ad-label" data-translate="advertisement">Advertisement</div>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="1234567890"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+            </div>
+            
+            <main class="main-card">
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="results-count" data-translate="numberOfUsers">Number of Users</label>
+                        <input type="number" id="results-count" min="1" max="50" value="5">
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="gender" data-translate="gender">Gender</label>
+                        <select id="gender">
+                            <option value="" data-translate="random">Random</option>
+                            <option value="male" data-translate="male">Male</option>
+                            <option value="female" data-translate="female">Female</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="nationality" data-translate="nationality">Nationality</label>
+                        <select id="nationality">
+                            <option value="" data-translate="random">Random</option>
+                            <option value="AU">Australia</option>
+                            <option value="BR">Brazil</option>
+                            <option value="CA">Canada</option>
+                            <option value="CH">Switzerland</option>
+                            <option value="DE">Germany</option>
+                            <option value="DK">Denmark</option>
+                            <option value="ES">Spain</option>
+                            <option value="FI">Finland</option>
+                            <option value="FR">France</option>
+                            <option value="GB">Great Britain</option>
+                            <option value="IE">Ireland</option>
+                            <option value="IN">India</option>
+                            <option value="IR">Iran</option>
+                            <option value="MX">Mexico</option>
+                            <option value="NL">Netherlands</option>
+                            <option value="NO">Norway</option>
+                            <option value="NZ">New Zealand</option>
+                            <option value="RS">Serbia</option>
+                            <option value="TR">Turkey</option>
+                            <option value="UA">Ukraine</option>
+                            <option value="US">United States</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label data-translate="includeFields">Include Fields</label>
+                        <div class="field-selector">
+                            <div class="field-item">
+                                <input type="checkbox" id="field-name" checked>
+                                <label for="field-name" data-translate="name">Name</label>
+                            </div>
+                            <div class="field-item">
+                                <input type="checkbox" id="field-email" checked>
+                                <label for="field-email" data-translate="email">Email</label>
+                            </div>
+                            <div class="field-item">
+                                <input type="checkbox" id="field-phone" checked>
+                                <label for="field-phone" data-translate="phone">Phone</label>
+                            </div>
+                            <div class="field-item">
+                                <input type="checkbox" id="field-location" checked>
+                                <label for="field-location" data-translate="location">Location</label>
+                            </div>
+                            <div class="field-item">
+                                <input type="checkbox" id="field-picture" checked>
+                                <label for="field-picture" data-translate="picture">Picture</label>
+                            </div>
+                            <div class="field-item">
+                                <input type="checkbox" id="field-dob" checked>
+                                <label for="field-dob" data-translate="dateOfBirth">Date of Birth</label>
+                            </div>
+                            <div class="field-item">
+                                <input type="checkbox" id="field-login">
+                                <label for="field-login" data-translate="loginInfo">Login Info</label>
+                            </div>
+                            <div class="field-item">
+                                <input type="checkbox" id="field-id">
+                                <label for="field-id" data-translate="idNumbers">ID Numbers</label>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <button class="generate-btn" onclick="generateUsers()" data-translate="generateUsers">Generate Random Users</button>
-            
-            <div id="results" class="results">
-                <!-- Middle Ad -->
-                <div class="ad-container">
-                    <div class="ad-label" data-translate="advertisement">Advertisement</div>
-                    <ins class="adsbygoogle"
-                         style="display:block"
-                         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                         data-ad-slot="0987654321"
-                         data-ad-format="auto"
-                         data-full-width-responsive="true"></ins>
+                
+                <button class="generate-btn" onclick="generateUsers()" data-translate="generateUsers">Generate Random Users</button>
+                
+                <div id="results" class="results">
+                    <!-- Middle Ad -->
+                    <div class="ad-container">
+                        <div class="ad-label" data-translate="advertisement">Advertisement</div>
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                             data-ad-slot="0987654321"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                    </div>
+                    
+                    <div class="export-section">
+                        <button class="export-btn" onclick="exportJSON()" data-translate="exportJSON">Export as JSON</button>
+                        <button class="export-btn" onclick="exportCSV()" data-translate="exportCSV">Export as CSV</button>
+                        <button class="export-btn" onclick="exportXML()" data-translate="exportXML">Export as XML</button>
+                    </div>
+                    <div id="users-container"></div>
+                </div>
+            </main>
+        </div>
+        
+        <!-- FAQ Page -->
+        <div id="faq-page" class="page-section">
+            <div class="main-card">
+                <h2 data-translate="faqTitle">Frequently Asked Questions</h2>
+                
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <button class="faq-question" data-translate="faq1Q">What is Random User Generator?</button>
+                    <div class="faq-answer" data-translate="faq1A">Random User Generator is a free tool that creates realistic fake user data for testing, development, and prototyping purposes. It generates random names, emails, addresses, phone numbers, and profile pictures.</div>
                 </div>
                 
-                <div class="export-section">
-                    <button class="export-btn" onclick="exportJSON()" data-translate="exportJSON">Export as JSON</button>
-                    <button class="export-btn" onclick="exportCSV()" data-translate="exportCSV">Export as CSV</button>
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <button class="faq-question" data-translate="faq2Q">Is the generated data real?</button>
+                    <div class="faq-answer" data-translate="faq2A">No, all data generated by this tool is completely fictional and randomly created. The profile pictures are from volunteers who have agreed to be used for this purpose, but the names and other information are not real.</div>
                 </div>
-                <div id="users-container"></div>
+                
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <button class="faq-question" data-translate="faq3Q">Can I use this data commercially?</button>
+                    <div class="faq-answer" data-translate="faq3A">Yes, the generated data is free to use for any purpose including commercial projects. However, please respect the terms of service of the underlying RandomUser.me API.</div>
+                </div>
+                
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <button class="faq-question" data-translate="faq4Q">How many users can I generate at once?</button>
+                    <div class="faq-answer" data-translate="faq4A">You can generate up to 50 users at once through our interface. For larger datasets, you may need to make multiple requests or use the API directly.</div>
+                </div>
+                
+                <div class="faq-item" onclick="toggleFAQ(this)">
+                    <button class="faq-question" data-translate="faq5Q">What export formats are supported?</button>
+                    <div class="faq-answer" data-translate="faq5A">We support JSON, CSV, and XML export formats. You can choose the format that best fits your development needs.</div>
+                </div>
             </div>
-        </main>
+        </div>
+        
+        <!-- Privacy Policy Page -->
+        <div id="privacy-page" class="page-section">
+            <div class="main-card">
+                <div class="content-section">
+                    <h2 data-translate="privacyTitle">Privacy Policy</h2>
+                    <p data-translate="privacyIntro">This Privacy Policy describes how RandomUserTools.com collects, uses, and protects your information when you use our service.</p>
+                </div>
+                
+                <div class="content-section">
+                    <h3 data-translate="privacyDataCollection">Data Collection</h3>
+                    <p data-translate="privacyDataCollectionText">We collect minimal information to provide our service:</p>
+                    <ul>
+                        <li data-translate="privacyItem1">Usage analytics (anonymous)</li>
+                        <li data-translate="privacyItem2">Language preferences</li>
+                        <li data-translate="privacyItem3">Browser information for optimization</li>
+                    </ul>
+                </div>
+                
+                <div class="content-section">
+                    <h3 data-translate="privacyDataUsage">How We Use Your Data</h3>
+                    <p data-translate="privacyDataUsageText">Your information is used to:</p>
+                    <ul>
+                        <li data-translate="privacyUsage1">Improve our service quality</li>
+                        <li data-translate="privacyUsage2">Remember your preferences</li>
+                        <li data-translate="privacyUsage3">Analyze usage patterns</li>
+                    </ul>
+                </div>
+                
+                <div class="content-section">
+                    <h3 data-translate="privacyCookies">Cookies</h3>
+                    <p data-translate="privacyCookiesText">We use cookies to enhance your experience and remember your preferences such as language and theme settings.</p>
+                </div>
+                
+                <div class="content-section">
+                    <h3 data-translate="privacyThirdParty">Third-Party Services</h3>
+                    <p data-translate="privacyThirdPartyText">Our service uses:</p>
+                    <ul>
+                        <li data-translate="privacyThird1">RandomUser.me API for generating user data</li>
+                        <li data-translate="privacyThird2">Google Analytics for usage statistics</li>
+                        <li data-translate="privacyThird3">Google AdSense for advertisements</li>
+                    </ul>
+                </div>
+                
+                <div class="content-section">
+                    <h3 data-translate="privacyContact">Contact</h3>
+                    <p data-translate="privacyContactText">If you have questions about this Privacy Policy, please contact us through our website.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- About Page -->
+        <div id="about-page" class="page-section">
+            <div class="main-card">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="users-generated">150,000+</div>
+                        <div class="stat-label" data-translate="statUsersGenerated">Users Generated</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">10</div>
+                        <div class="stat-label" data-translate="statLanguages">Languages Supported</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label" data-translate="statFormats">Export Formats</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label" data-translate="statFree">Free to Use</div>
+                    </div>
+                </div>
+                
+                <div class="content-section">
+                    <h2 data-translate="aboutTitle">About Random User Generator</h2>
+                    <p data-translate="aboutIntro">RandomUserTools.com is a modern, multilingual tool designed to help developers, testers, and designers generate realistic fake user data for their projects.</p>
+                </div>
+                
+                <div class="content-section">
+                    <h3 data-translate="aboutFeatures">Features</h3>
+                    <ul>
+                        <li data-translate="aboutFeature1">Generate up to 50 users at once</li>
+                        <li data-translate="aboutFeature2">Support for 10+ languages</li>
+                        <li data-translate="aboutFeature3">Multiple export formats (JSON, CSV, XML)</li>
+                        <li data-translate="aboutFeature4">Dark mode support</li>
+                        <li data-translate="aboutFeature5">Mobile-friendly responsive design</li>
+                        <li data-translate="aboutFeature6">Consistent data formatting by nationality</li>
+                    </ul>
+                </div>
+                
+                <div class="content-section">
+                    <h3 data-translate="aboutTech">Technology</h3>
+                    <p data-translate="aboutTechText">Built with modern web technologies and powered by the RandomUser.me API, our tool ensures fast performance and reliable data generation across all devices.</p>
+                </div>
+            </div>
+        </div>
         
         <!-- Bottom Ad -->
         <div class="ad-container">
@@ -546,11 +907,15 @@
     </footer>
     
     <script>
-        // 多语言翻译对象
+        // 扩展的多语言翻译对象
         const translations = {
             en: {
                 title: "Random User Generator",
                 subtitle: "Generate realistic user data for testing and development",
+                navGenerator: "Generator",
+                navFAQ: "FAQ",
+                navPrivacy: "Privacy",
+                navAbout: "About",
                 numberOfUsers: "Number of Users",
                 gender: "Gender",
                 nationality: "Nationality",
@@ -570,10 +935,10 @@
                 generating: "Generating...",
                 exportJSON: "Export as JSON",
                 exportCSV: "Export as CSV",
+                exportXML: "Export as XML",
                 advertisement: "Advertisement",
                 footerCopyright: "&copy; 2025 RandomUserTools.com | Powered by <a href='https://randomuser.me' target='_blank'>RandomUser.me API</a>",
                 footerDescription: "Free random user data generator for developers and testers",
-                // 用户信息标签
                 phoneLabel: "Phone:",
                 cellLabel: "Cell:",
                 dobLabel: "Date of Birth:",
@@ -581,11 +946,65 @@
                 addressLabel: "Address:",
                 usernameLabel: "Username:",
                 nationalityLabel: "Nationality:",
-                errorGenerate: "Error generating users:"
+                errorGenerate: "Error generating users:",
+                // FAQ
+                faqTitle: "Frequently Asked Questions",
+                faq1Q: "What is Random User Generator?",
+                faq1A: "Random User Generator is a free tool that creates realistic fake user data for testing, development, and prototyping purposes. It generates random names, emails, addresses, phone numbers, and profile pictures.",
+                faq2Q: "Is the generated data real?",
+                faq2A: "No, all data generated by this tool is completely fictional and randomly created. The profile pictures are from volunteers who have agreed to be used for this purpose, but the names and other information are not real.",
+                faq3Q: "Can I use this data commercially?",
+                faq3A: "Yes, the generated data is free to use for any purpose including commercial projects. However, please respect the terms of service of the underlying RandomUser.me API.",
+                faq4Q: "How many users can I generate at once?",
+                faq4A: "You can generate up to 50 users at once through our interface. For larger datasets, you may need to make multiple requests or use the API directly.",
+                faq5Q: "What export formats are supported?",
+                faq5A: "We support JSON, CSV, and XML export formats. You can choose the format that best fits your development needs.",
+                // Privacy
+                privacyTitle: "Privacy Policy",
+                privacyIntro: "This Privacy Policy describes how RandomUserTools.com collects, uses, and protects your information when you use our service.",
+                privacyDataCollection: "Data Collection",
+                privacyDataCollectionText: "We collect minimal information to provide our service:",
+                privacyItem1: "Usage analytics (anonymous)",
+                privacyItem2: "Language preferences",
+                privacyItem3: "Browser information for optimization",
+                privacyDataUsage: "How We Use Your Data",
+                privacyDataUsageText: "Your information is used to:",
+                privacyUsage1: "Improve our service quality",
+                privacyUsage2: "Remember your preferences",
+                privacyUsage3: "Analyze usage patterns",
+                privacyCookies: "Cookies",
+                privacyCookiesText: "We use cookies to enhance your experience and remember your preferences such as language and theme settings.",
+                privacyThirdParty: "Third-Party Services",
+                privacyThirdPartyText: "Our service uses:",
+                privacyThird1: "RandomUser.me API for generating user data",
+                privacyThird2: "Google Analytics for usage statistics",
+                privacyThird3: "Google AdSense for advertisements",
+                privacyContact: "Contact",
+                privacyContactText: "If you have questions about this Privacy Policy, please contact us through our website.",
+                // About
+                aboutTitle: "About Random User Generator",
+                aboutIntro: "RandomUserTools.com is a modern, multilingual tool designed to help developers, testers, and designers generate realistic fake user data for their projects.",
+                aboutFeatures: "Features",
+                aboutFeature1: "Generate up to 50 users at once",
+                aboutFeature2: "Support for 10+ languages",
+                aboutFeature3: "Multiple export formats (JSON, CSV, XML)",
+                aboutFeature4: "Dark mode support",
+                aboutFeature5: "Mobile-friendly responsive design",
+                aboutFeature6: "Consistent data formatting by nationality",
+                aboutTech: "Technology",
+                aboutTechText: "Built with modern web technologies and powered by the RandomUser.me API, our tool ensures fast performance and reliable data generation across all devices.",
+                statUsersGenerated: "Users Generated",
+                statLanguages: "Languages Supported",
+                statFormats: "Export Formats",
+                statFree: "Free to Use"
             },
             zh: {
                 title: "随机用户生成器",
                 subtitle: "为测试和开发生成真实的用户数据",
+                navGenerator: "生成器",
+                navFAQ: "常见问题",
+                navPrivacy: "隐私政策",
+                navAbout: "关于我们",
                 numberOfUsers: "用户数量",
                 gender: "性别",
                 nationality: "国籍",
@@ -605,6 +1024,7 @@
                 generating: "生成中...",
                 exportJSON: "导出为 JSON",
                 exportCSV: "导出为 CSV",
+                exportXML: "导出为 XML",
                 advertisement: "广告",
                 footerCopyright: "&copy; 2025 RandomUserTools.com | 基于 <a href='https://randomuser.me' target='_blank'>RandomUser.me API</a>",
                 footerDescription: "为开发者和测试人员提供的免费随机用户数据生成器",
@@ -615,86 +1035,130 @@
                 addressLabel: "地址：",
                 usernameLabel: "用户名：",
                 nationalityLabel: "国籍：",
-                errorGenerate: "生成用户时出错："
-            },
-            es: {
-                title: "Generador de Usuarios Aleatorios",
-                subtitle: "Genera datos de usuarios realistas para pruebas y desarrollo",
-                numberOfUsers: "Número de Usuarios",
-                gender: "Género",
-                nationality: "Nacionalidad",
-                includeFields: "Incluir Campos",
-                name: "Nombre",
-                email: "Email",
-                phone: "Teléfono",
-                location: "Ubicación",
-                picture: "Imagen",
-                dateOfBirth: "Fecha de Nacimiento",
-                loginInfo: "Info de Login",
-                idNumbers: "Números de ID",
-                random: "Aleatorio",
-                male: "Masculino",
-                female: "Femenino",
-                generateUsers: "Generar Usuarios Aleatorios",
-                generating: "Generando...",
-                exportJSON: "Exportar como JSON",
-                exportCSV: "Exportar como CSV",
-                advertisement: "Publicidad",
-                footerCopyright: "&copy; 2025 RandomUserTools.com | Powered by <a href='https://randomuser.me' target='_blank'>RandomUser.me API</a>",
-                footerDescription: "Generador gratuito de datos de usuarios aleatorios para desarrolladores y testers",
-                phoneLabel: "Teléfono:",
-                cellLabel: "Móvil:",
-                dobLabel: "Fecha de Nacimiento:",
-                ageLabel: "Edad:",
-                addressLabel: "Dirección:",
-                usernameLabel: "Usuario:",
-                nationalityLabel: "Nacionalidad:",
-                errorGenerate: "Error al generar usuarios:"
+                errorGenerate: "生成用户时出错：",
+                // FAQ
+                faqTitle: "常见问题",
+                faq1Q: "什么是随机用户生成器？",
+                faq1A: "随机用户生成器是一个免费工具，为测试、开发和原型设计目的创建真实的虚假用户数据。它生成随机姓名、邮箱、地址、电话号码和头像。",
+                faq2Q: "生成的数据是真实的吗？",
+                faq2A: "不是，此工具生成的所有数据都是完全虚构和随机创建的。头像来自同意用于此目的的志愿者，但姓名和其他信息都不是真实的。",
+                faq3Q: "我可以商业使用这些数据吗？",
+                faq3A: "是的，生成的数据可以免费用于任何目的，包括商业项目。但是，请遵守底层 RandomUser.me API 的服务条款。",
+                faq4Q: "我一次可以生成多少用户？",
+                faq4A: "通过我们的界面，您一次最多可以生成 50 个用户。对于更大的数据集，您可能需要多次请求或直接使用 API。",
+                faq5Q: "支持哪些导出格式？",
+                faq5A: "我们支持 JSON、CSV 和 XML 导出格式。您可以选择最适合您开发需求的格式。",
+                // Privacy
+                privacyTitle: "隐私政策",
+                privacyIntro: "本隐私政策描述了 RandomUserTools.com 在您使用我们的服务时如何收集、使用和保护您的信息。",
+                privacyDataCollection: "数据收集",
+                privacyDataCollectionText: "我们收集最少的信息来提供我们的服务：",
+                privacyItem1: "使用分析（匿名）",
+                privacyItem2: "语言偏好",
+                privacyItem3: "用于优化的浏览器信息",
+                privacyDataUsage: "我们如何使用您的数据",
+                privacyDataUsageText: "您的信息用于：",
+                privacyUsage1: "改善我们的服务质量",
+                privacyUsage2: "记住您的偏好",
+                privacyUsage3: "分析使用模式",
+                privacyCookies: "Cookie",
+                privacyCookiesText: "我们使用 Cookie 来增强您的体验并记住您的偏好，如语言和主题设置。",
+                privacyThirdParty: "第三方服务",
+                privacyThirdPartyText: "我们的服务使用：",
+                privacyThird1: "RandomUser.me API 用于生成用户数据",
+                privacyThird2: "Google Analytics 用于使用统计",
+                privacyThird3: "Google AdSense 用于广告",
+                privacyContact: "联系方式",
+                privacyContactText: "如果您对本隐私政策有疑问，请通过我们的网站联系我们。",
+                // About
+                aboutTitle: "关于随机用户生成器",
+                aboutIntro: "RandomUserTools.com 是一个现代化的多语言工具，旨在帮助开发者、测试人员和设计师为他们的项目生成真实的虚假用户数据。",
+                aboutFeatures: "功能特性",
+                aboutFeature1: "一次生成多达 50 个用户",
+                aboutFeature2: "支持 10+ 种语言",
+                aboutFeature3: "多种导出格式（JSON、CSV、XML）",
+                aboutFeature4: "深色模式支持",
+                aboutFeature5: "移动友好的响应式设计",
+                aboutFeature6: "按国籍一致的数据格式",
+                aboutTech: "技术",
+                aboutTechText: "采用现代网络技术构建，由 RandomUser.me API 提供支持，我们的工具确保在所有设备上快速性能和可靠的数据生成。",
+                statUsersGenerated: "已生成用户",
+                statLanguages: "支持语言",
+                statFormats: "导出格式",
+                statFree: "免费使用"
             }
             // 可以继续添加其他语言...
         };
         
         let currentUsers = [];
         let currentLanguage = 'en';
+        let currentTheme = 'light';
+        
+        // 主题切换功能
+        function toggleTheme() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.body.setAttribute('data-theme', currentTheme);
+            document.getElementById('theme-icon').textContent = currentTheme === 'light' ? '🌙' : '☀️';
+            localStorage.setItem('theme', currentTheme);
+            
+            // 跟踪主题切换事件
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'theme_toggle', {
+                    'theme': currentTheme
+                });
+            }
+        }
+        
+        // 页面导航功能
+        function showPage(pageId) {
+            // 隐藏所有页面
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // 显示选中页面
+            document.getElementById(pageId + '-page').classList.add('active');
+            
+            // 更新导航状态
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 跟踪页面访问
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'page_view', {
+                    'page_title': pageId,
+                    'page_location': window.location.href + '#' + pageId
+                });
+            }
+        }
+        
+        // FAQ 切换功能
+        function toggleFAQ(element) {
+            element.classList.toggle('active');
+        }
         
         // 检测用户首选语言
         function detectUserLanguage() {
-            // 1. 检查URL参数
             const urlParams = new URLSearchParams(window.location.search);
             const langParam = urlParams.get('lang');
             if (langParam && translations[langParam]) {
                 return langParam;
             }
             
-            // 2. 检查localStorage
             const savedLang = localStorage.getItem('preferredLanguage');
             if (savedLang && translations[savedLang]) {
                 return savedLang;
             }
             
-            // 3. 检测浏览器语言
             const browserLang = navigator.language || navigator.userLanguage;
             const langCode = browserLang.split('-')[0];
             
-            // 根据常见国家IP对应语言 (简化版)
-            const ipLanguageMap = {
-                'zh': ['CN', 'TW', 'HK', 'SG'], // 中文地区
-                'es': ['ES', 'MX', 'AR', 'CO', 'CL'], // 西班牙语地区
-                'fr': ['FR', 'CA', 'BE', 'CH'], // 法语地区
-                'de': ['DE', 'AT', 'CH'], // 德语地区
-                'ja': ['JP'], // 日语地区
-                'ko': ['KR'], // 韩语地区
-                'pt': ['BR', 'PT'], // 葡萄牙语地区
-                'ru': ['RU', 'BY', 'KZ'], // 俄语地区
-                'ar': ['SA', 'AE', 'EG', 'MA'] // 阿拉伯语地区
-            };
-            
-            // 如果有翻译支持，返回对应语言
             if (translations[langCode]) {
                 return langCode;
             }
             
-            // 默认返回英语
             return 'en';
         }
         
@@ -705,10 +1169,16 @@
             localStorage.setItem('preferredLanguage', newLang);
             updatePageLanguage();
             
-            // 更新URL参数
             const url = new URL(window.location);
             url.searchParams.set('lang', newLang);
             window.history.replaceState({}, '', url);
+            
+            // 跟踪语言切换事件
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'language_change', {
+                    'language': newLang
+                });
+            }
         }
         
         // 更新页面语言
@@ -716,7 +1186,6 @@
             const t = translations[currentLanguage];
             document.getElementById('html-root').lang = currentLanguage;
             
-            // 更新所有带有 data-translate 属性的元素
             document.querySelectorAll('[data-translate]').forEach(element => {
                 const key = element.getAttribute('data-translate');
                 if (t[key]) {
@@ -728,25 +1197,21 @@
                 }
             });
             
-            // 更新页面标题
             document.title = `${t.title} - Free Testing Data Tool | RandomUserTools.com`;
             
-            // 更新meta描述
             const metaDesc = document.querySelector('meta[name="description"]');
             if (metaDesc && currentLanguage === 'zh') {
                 metaDesc.content = "生成随机用户数据用于测试和开发。免费的随机用户生成器API工具，可自定义选项。";
-            } else if (metaDesc && currentLanguage === 'es') {
-                metaDesc.content = "Genera datos de usuarios aleatorios para pruebas y desarrollo. Herramienta API gratuita de generador de usuarios aleatorios con opciones personalizables.";
             }
         }
         
+        // 生成用户数据
         async function generateUsers() {
             const generateBtn = document.querySelector('.generate-btn');
             const resultsDiv = document.getElementById('results');
             const usersContainer = document.getElementById('users-container');
             const t = translations[currentLanguage];
             
-            // Get form values
             const count = document.getElementById('results-count').value;
             const gender = document.getElementById('gender').value;
             const nationality = document.getElementById('nationality').value;
@@ -754,14 +1219,12 @@
                 return checkbox.id.replace('field-', '');
             });
             
-            // Build API URL with seed for consistency
-            const seed = Date.now().toString(); // 使用时间戳作为种子确保一致性
+            const seed = Date.now().toString();
             let apiUrl = `https://randomuser.me/api/?results=${count}&seed=${seed}`;
             if (gender) apiUrl += `&gender=${gender}`;
             if (nationality) apiUrl += `&nat=${nationality}`;
             if (includeFields.length > 0) apiUrl += `&inc=${includeFields.join(',')}`;
             
-            // Show loading state
             generateBtn.textContent = t.generating;
             generateBtn.classList.add('loading');
             
@@ -770,13 +1233,20 @@
                 if (!response.ok) throw new Error('API request failed');
                 
                 const data = await response.json();
-                
-                // 数据一致性处理
                 const processedUsers = data.results.map(user => processUserData(user, nationality));
                 currentUsers = processedUsers;
                 
                 displayUsers(currentUsers);
                 resultsDiv.style.display = 'block';
+                
+                // 跟踪生成事件
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'generate_users', {
+                        'user_count': count,
+                        'gender': gender || 'random',
+                        'nationality': nationality || 'random'
+                    });
+                }
                 
             } catch (error) {
                 usersContainer.innerHTML = `<div class="error">${t.errorGenerate} ${error.message}</div>`;
@@ -789,7 +1259,6 @@
         
         // 处理用户数据，确保一致性
         function processUserData(user, selectedNationality) {
-            // 如果指定了国籍，确保数据格式一致
             if (selectedNationality && user.location) {
                 const countryMap = {
                     'US': { country: 'United States', phoneFormat: '(###) ###-####' },
@@ -812,23 +1281,15 @@
                 if (countryMap[selectedNationality]) {
                     user.location.country = countryMap[selectedNationality].country;
                     user.nat = selectedNationality;
-                    
-                    // 生成符合该国格式的电话号码
                     user.phone = generatePhoneNumber(countryMap[selectedNationality].phoneFormat);
                     user.cell = generatePhoneNumber(countryMap[selectedNationality].phoneFormat);
                 }
             }
             
-            // 年龄一致性检查：基于头像调整年龄范围
             if (user.dob && user.picture) {
                 const currentAge = user.dob.age;
-                // 如果年龄看起来不合理（比如头像看起来很年轻但年龄很大），进行调整
-                if (currentAge > 60) {
-                    // 对于看起来较老的用户，保持原年龄
-                    // 这里可以根据实际需要进一步优化
-                } else if (currentAge < 18) {
-                    // 确保所有用户都是成年人
-                    const newAge = 18 + Math.floor(Math.random() * 10); // 18-27岁
+                if (currentAge < 18) {
+                    const newAge = 18 + Math.floor(Math.random() * 10);
                     const newBirthYear = new Date().getFullYear() - newAge;
                     const newBirthDate = new Date(newBirthYear, Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1);
                     user.dob.age = newAge;
@@ -836,9 +1297,7 @@
                 }
             }
             
-            // 清理和格式化地址信息
             if (user.location && user.location.street) {
-                // 确保街道号码是合理的
                 if (!user.location.street.number || user.location.street.number > 9999) {
                     user.location.street.number = Math.floor(Math.random() * 9999) + 1;
                 }
@@ -852,6 +1311,7 @@
             return format.replace(/#/g, () => Math.floor(Math.random() * 10));
         }
         
+        // 显示用户数据
         function displayUsers(users) {
             const container = document.getElementById('users-container');
             const t = translations[currentLanguage];
@@ -863,13 +1323,13 @@
             });
         }
         
+        // 创建用户卡片
         function createUserCard(user, t) {
             const card = document.createElement('div');
             card.className = 'user-card';
             
             const fullName = `${user.name?.title || ''} ${user.name?.first || ''} ${user.name?.last || ''}`.trim();
             
-            // 改进的地址格式化
             let address = '';
             if (user.location) {
                 const parts = [];
@@ -883,7 +1343,6 @@
                 address = parts.join(', ');
             }
             
-            // 改进的日期格式化
             const formatDate = (dateString) => {
                 const date = new Date(dateString);
                 const options = { 
@@ -917,41 +1376,23 @@
             return card;
         }
         
-        // 根据语言获取locale
+        // 辅助函数
         function getLocaleFromLanguage(lang) {
             const localeMap = {
-                'en': 'en-US',
-                'zh': 'zh-CN',
-                'es': 'es-ES',
-                'fr': 'fr-FR',
-                'de': 'de-DE',
-                'ja': 'ja-JP',
-                'ko': 'ko-KR',
-                'pt': 'pt-BR',
-                'ru': 'ru-RU',
-                'ar': 'ar-SA'
+                'en': 'en-US', 'zh': 'zh-CN', 'es': 'es-ES', 'fr': 'fr-FR', 'de': 'de-DE',
+                'ja': 'ja-JP', 'ko': 'ko-KR', 'pt': 'pt-BR', 'ru': 'ru-RU', 'ar': 'ar-SA'
             };
             return localeMap[lang] || 'en-US';
         }
         
-        // 获取年龄单位
         function getAgeUnit(lang) {
             const ageUnits = {
-                'en': 'years old',
-                'zh': '岁',
-                'es': 'años',
-                'fr': 'ans',
-                'de': 'Jahre alt',
-                'ja': '歳',
-                'ko': '세',
-                'pt': 'anos',
-                'ru': 'лет',
-                'ar': 'سنة'
+                'en': 'years old', 'zh': '岁', 'es': 'años', 'fr': 'ans', 'de': 'Jahre alt',
+                'ja': '歳', 'ko': '세', 'pt': 'anos', 'ru': 'лет', 'ar': 'سنة'
             };
             return ageUnits[lang] || 'years old';
         }
         
-        // 获取国籍全称
         function getNationalityName(natCode, lang) {
             const nationalityNames = {
                 'en': {
@@ -969,23 +1410,20 @@
                     'IR': '伊朗', 'MX': '墨西哥', 'NL': '荷兰', 'NO': '挪威',
                     'NZ': '新西兰', 'RS': '塞尔维亚', 'TR': '土耳其', 'UA': '乌克兰',
                     'US': '美国'
-                },
-                'es': {
-                    'AU': 'Australiano', 'BR': 'Brasileño', 'CA': 'Canadiense', 'CH': 'Suizo',
-                    'DE': 'Alemán', 'DK': 'Danés', 'ES': 'Español', 'FI': 'Finlandés',
-                    'FR': 'Francés', 'GB': 'Británico', 'IE': 'Irlandés', 'IN': 'Indio',
-                    'IR': 'Iraní', 'MX': 'Mexicano', 'NL': 'Holandés', 'NO': 'Noruego',
-                    'NZ': 'Neozelandés', 'RS': 'Serbio', 'TR': 'Turco', 'UA': 'Ucraniano',
-                    'US': 'Estadounidense'
                 }
             };
             
             return nationalityNames[lang]?.[natCode] || natCode;
         }
         
+        // 导出功能
         function exportJSON() {
             const dataStr = JSON.stringify(currentUsers, null, 2);
             downloadFile(dataStr, 'random-users.json', 'application/json');
+            
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'export_data', { 'format': 'JSON' });
+            }
         }
         
         function exportCSV() {
@@ -1012,6 +1450,58 @@
             });
             
             downloadFile(csvData.join('\n'), 'random-users.csv', 'text/csv');
+            
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'export_data', { 'format': 'CSV' });
+            }
+        }
+        
+        function exportXML() {
+            if (currentUsers.length === 0) return;
+            
+            let xmlData = '<?xml version="1.0" encoding="UTF-8"?>\n<users>\n';
+            
+            currentUsers.forEach(user => {
+                xmlData += '  <user>\n';
+                xmlData += `    <name>${escapeXml(`${user.name?.title || ''} ${user.name?.first || ''} ${user.name?.last || ''}`.trim())}</name>\n`;
+                if (user.email) xmlData += `    <email>${escapeXml(user.email)}</email>\n`;
+                if (user.phone) xmlData += `    <phone>${escapeXml(user.phone)}</phone>\n`;
+                if (user.cell) xmlData += `    <cell>${escapeXml(user.cell)}</cell>\n`;
+                if (user.dob?.date) xmlData += `    <dateOfBirth>${escapeXml(new Date(user.dob.date).toLocaleDateString())}</dateOfBirth>\n`;
+                if (user.dob?.age) xmlData += `    <age>${user.dob.age}</age>\n`;
+                if (user.location) {
+                    xmlData += '    <location>\n';
+                    if (user.location.street) xmlData += `      <street>${escapeXml(`${user.location.street.number || ''} ${user.location.street.name || ''}`.trim())}</street>\n`;
+                    if (user.location.city) xmlData += `      <city>${escapeXml(user.location.city)}</city>\n`;
+                    if (user.location.state) xmlData += `      <state>${escapeXml(user.location.state)}</state>\n`;
+                    if (user.location.postcode) xmlData += `      <postcode>${escapeXml(user.location.postcode)}</postcode>\n`;
+                    if (user.location.country) xmlData += `      <country>${escapeXml(user.location.country)}</country>\n`;
+                    xmlData += '    </location>\n';
+                }
+                if (user.login?.username) xmlData += `    <username>${escapeXml(user.login.username)}</username>\n`;
+                if (user.nat) xmlData += `    <nationality>${escapeXml(user.nat)}</nationality>\n`;
+                xmlData += '  </user>\n';
+            });
+            
+            xmlData += '</users>';
+            
+            downloadFile(xmlData, 'random-users.xml', 'application/xml');
+            
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'export_data', { 'format': 'XML' });
+            }
+        }
+        
+        function escapeXml(unsafe) {
+            return unsafe.replace(/[<>&'"]/g, function (c) {
+                switch (c) {
+                    case '<': return '&lt;';
+                    case '>': return '&gt;';
+                    case '&': return '&amp;';
+                    case '\'': return '&apos;';
+                    case '"': return '&quot;';
+                }
+            });
         }
         
         function downloadFile(content, filename, contentType) {
@@ -1028,6 +1518,12 @@
         
         // 初始化应用
         window.addEventListener('load', () => {
+            // 检测并设置主题
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            currentTheme = savedTheme;
+            document.body.setAttribute('data-theme', currentTheme);
+            document.getElementById('theme-icon').textContent = currentTheme === 'light' ? '🌙' : '☀️';
+            
             // 检测并设置语言
             currentLanguage = detectUserLanguage();
             document.getElementById('language-select').value = currentLanguage;
@@ -1042,7 +1538,27 @@
                 (adsbygoogle = window.adsbygoogle || []).push({});
                 (adsbygoogle = window.adsbygoogle || []).push({});
             }
+            
+            // 更新统计数字动画
+            animateCounters();
         });
+        
+        // 统计数字动画
+        function animateCounters() {
+            const usersGenerated = document.getElementById('users-generated');
+            let count = 0;
+            const target = 150000;
+            const increment = target / 100;
+            
+            const timer = setInterval(() => {
+                count += increment;
+                if (count >= target) {
+                    count = target;
+                    clearInterval(timer);
+                }
+                usersGenerated.textContent = Math.floor(count).toLocaleString() + '+';
+            }, 20);
+        }
     </script>
 </body>
 </html>
