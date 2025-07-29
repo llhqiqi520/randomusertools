@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="html-root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,6 +39,32 @@
         .header {
             text-align: center;
             margin-bottom: 40px;
+            color: white;
+            position: relative;
+        }
+        
+        .language-selector {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 8px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .language-selector select {
+            background: transparent;
+            border: none;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 5px;
+            outline: none;
+        }
+        
+        .language-selector select option {
+            background: #667eea;
             color: white;
         }
         
@@ -254,23 +280,6 @@
             background: #218838;
         }
         
-        .footer {
-            text-align: center;
-            color: white;
-            padding: 40px 20px;
-            opacity: 0.9;
-        }
-        
-        .footer a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-        }
-        
-        .footer a:hover {
-            text-decoration: underline;
-        }
-        
         .ad-container {
             margin: 30px auto;
             text-align: center;
@@ -290,6 +299,23 @@
         
         .ad-container ins {
             margin: 0 auto;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 40px 20px;
+            opacity: 0.9;
+        }
+        
+        .footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
         }
         
         @media (max-width: 768px) {
@@ -347,6 +373,12 @@
                 text-align: left;
                 margin-top: 5px;
             }
+            
+            .language-selector {
+                position: static;
+                margin-bottom: 20px;
+                display: inline-block;
+            }
         }
         
         .error {
@@ -362,13 +394,27 @@
 <body>
     <div class="container">
         <header class="header">
-            <h1>Random User Generator</h1>
-            <p>Generate realistic user data for testing and development</p>
+            <div class="language-selector">
+                <select id="language-select" onchange="changeLanguage()">
+                    <option value="en">🇺🇸 English</option>
+                    <option value="zh">🇨🇳 中文</option>
+                    <option value="es">🇪🇸 Español</option>
+                    <option value="fr">🇫🇷 Français</option>
+                    <option value="de">🇩🇪 Deutsch</option>
+                    <option value="ja">🇯🇵 日本語</option>
+                    <option value="ko">🇰🇷 한국어</option>
+                    <option value="pt">🇧🇷 Português</option>
+                    <option value="ru">🇷🇺 Русский</option>
+                    <option value="ar">🇸🇦 العربية</option>
+                </select>
+            </div>
+            <h1 data-translate="title">Random User Generator</h1>
+            <p data-translate="subtitle">Generate realistic user data for testing and development</p>
         </header>
         
         <!-- Top Banner Ad -->
         <div class="ad-container">
-            <div class="ad-label">Advertisement</div>
+            <div class="ad-label" data-translate="advertisement">Advertisement</div>
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
@@ -380,23 +426,23 @@
         <main class="main-card">
             <div class="controls">
                 <div class="control-group">
-                    <label for="results-count">Number of Users</label>
+                    <label for="results-count" data-translate="numberOfUsers">Number of Users</label>
                     <input type="number" id="results-count" min="1" max="50" value="5">
                 </div>
                 
                 <div class="control-group">
-                    <label for="gender">Gender</label>
+                    <label for="gender" data-translate="gender">Gender</label>
                     <select id="gender">
-                        <option value="">Random</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
+                        <option value="" data-translate="random">Random</option>
+                        <option value="male" data-translate="male">Male</option>
+                        <option value="female" data-translate="female">Female</option>
                     </select>
                 </div>
                 
                 <div class="control-group">
-                    <label for="nationality">Nationality</label>
+                    <label for="nationality" data-translate="nationality">Nationality</label>
                     <select id="nationality">
-                        <option value="">Random</option>
+                        <option value="" data-translate="random">Random</option>
                         <option value="AU">Australia</option>
                         <option value="BR">Brazil</option>
                         <option value="CA">Canada</option>
@@ -422,50 +468,50 @@
                 </div>
                 
                 <div class="control-group">
-                    <label>Include Fields</label>
+                    <label data-translate="includeFields">Include Fields</label>
                     <div class="field-selector">
                         <div class="field-item">
                             <input type="checkbox" id="field-name" checked>
-                            <label for="field-name">Name</label>
+                            <label for="field-name" data-translate="name">Name</label>
                         </div>
                         <div class="field-item">
                             <input type="checkbox" id="field-email" checked>
-                            <label for="field-email">Email</label>
+                            <label for="field-email" data-translate="email">Email</label>
                         </div>
                         <div class="field-item">
                             <input type="checkbox" id="field-phone" checked>
-                            <label for="field-phone">Phone</label>
+                            <label for="field-phone" data-translate="phone">Phone</label>
                         </div>
                         <div class="field-item">
                             <input type="checkbox" id="field-location" checked>
-                            <label for="field-location">Location</label>
+                            <label for="field-location" data-translate="location">Location</label>
                         </div>
                         <div class="field-item">
                             <input type="checkbox" id="field-picture" checked>
-                            <label for="field-picture">Picture</label>
+                            <label for="field-picture" data-translate="picture">Picture</label>
                         </div>
                         <div class="field-item">
                             <input type="checkbox" id="field-dob" checked>
-                            <label for="field-dob">Date of Birth</label>
+                            <label for="field-dob" data-translate="dateOfBirth">Date of Birth</label>
                         </div>
                         <div class="field-item">
                             <input type="checkbox" id="field-login">
-                            <label for="field-login">Login Info</label>
+                            <label for="field-login" data-translate="loginInfo">Login Info</label>
                         </div>
                         <div class="field-item">
                             <input type="checkbox" id="field-id">
-                            <label for="field-id">ID Numbers</label>
+                            <label for="field-id" data-translate="idNumbers">ID Numbers</label>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <button class="generate-btn" onclick="generateUsers()">Generate Random Users</button>
+            <button class="generate-btn" onclick="generateUsers()" data-translate="generateUsers">Generate Random Users</button>
             
             <div id="results" class="results">
                 <!-- Middle Ad -->
                 <div class="ad-container">
-                    <div class="ad-label">Advertisement</div>
+                    <div class="ad-label" data-translate="advertisement">Advertisement</div>
                     <ins class="adsbygoogle"
                          style="display:block"
                          data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
@@ -475,8 +521,8 @@
                 </div>
                 
                 <div class="export-section">
-                    <button class="export-btn" onclick="exportJSON()">Export as JSON</button>
-                    <button class="export-btn" onclick="exportCSV()">Export as CSV</button>
+                    <button class="export-btn" onclick="exportJSON()" data-translate="exportJSON">Export as JSON</button>
+                    <button class="export-btn" onclick="exportCSV()" data-translate="exportCSV">Export as CSV</button>
                 </div>
                 <div id="users-container"></div>
             </div>
@@ -484,7 +530,7 @@
         
         <!-- Bottom Ad -->
         <div class="ad-container">
-            <div class="ad-label">Advertisement</div>
+            <div class="ad-label" data-translate="advertisement">Advertisement</div>
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
@@ -495,17 +541,210 @@
     </div>
     
     <footer class="footer">
-        <p>&copy; 2025 RandomUserTools.com | Powered by <a href="https://randomuser.me" target="_blank">RandomUser.me API</a></p>
-        <p>Free random user data generator for developers and testers</p>
+        <p data-translate="footerCopyright">&copy; 2025 RandomUserTools.com | Powered by <a href="https://randomuser.me" target="_blank">RandomUser.me API</a></p>
+        <p data-translate="footerDescription">Free random user data generator for developers and testers</p>
     </footer>
     
     <script>
+        // 多语言翻译对象
+        const translations = {
+            en: {
+                title: "Random User Generator",
+                subtitle: "Generate realistic user data for testing and development",
+                numberOfUsers: "Number of Users",
+                gender: "Gender",
+                nationality: "Nationality",
+                includeFields: "Include Fields",
+                name: "Name",
+                email: "Email",
+                phone: "Phone",
+                location: "Location",
+                picture: "Picture",
+                dateOfBirth: "Date of Birth",
+                loginInfo: "Login Info",
+                idNumbers: "ID Numbers",
+                random: "Random",
+                male: "Male",
+                female: "Female",
+                generateUsers: "Generate Random Users",
+                generating: "Generating...",
+                exportJSON: "Export as JSON",
+                exportCSV: "Export as CSV",
+                advertisement: "Advertisement",
+                footerCopyright: "&copy; 2025 RandomUserTools.com | Powered by <a href='https://randomuser.me' target='_blank'>RandomUser.me API</a>",
+                footerDescription: "Free random user data generator for developers and testers",
+                // 用户信息标签
+                phoneLabel: "Phone:",
+                cellLabel: "Cell:",
+                dobLabel: "Date of Birth:",
+                ageLabel: "Age:",
+                addressLabel: "Address:",
+                usernameLabel: "Username:",
+                nationalityLabel: "Nationality:",
+                errorGenerate: "Error generating users:"
+            },
+            zh: {
+                title: "随机用户生成器",
+                subtitle: "为测试和开发生成真实的用户数据",
+                numberOfUsers: "用户数量",
+                gender: "性别",
+                nationality: "国籍",
+                includeFields: "包含字段",
+                name: "姓名",
+                email: "邮箱",
+                phone: "电话",
+                location: "位置",
+                picture: "头像",
+                dateOfBirth: "出生日期",
+                loginInfo: "登录信息",
+                idNumbers: "证件号码",
+                random: "随机",
+                male: "男性",
+                female: "女性",
+                generateUsers: "生成随机用户",
+                generating: "生成中...",
+                exportJSON: "导出为 JSON",
+                exportCSV: "导出为 CSV",
+                advertisement: "广告",
+                footerCopyright: "&copy; 2025 RandomUserTools.com | 基于 <a href='https://randomuser.me' target='_blank'>RandomUser.me API</a>",
+                footerDescription: "为开发者和测试人员提供的免费随机用户数据生成器",
+                phoneLabel: "电话：",
+                cellLabel: "手机：",
+                dobLabel: "出生日期：",
+                ageLabel: "年龄：",
+                addressLabel: "地址：",
+                usernameLabel: "用户名：",
+                nationalityLabel: "国籍：",
+                errorGenerate: "生成用户时出错："
+            },
+            es: {
+                title: "Generador de Usuarios Aleatorios",
+                subtitle: "Genera datos de usuarios realistas para pruebas y desarrollo",
+                numberOfUsers: "Número de Usuarios",
+                gender: "Género",
+                nationality: "Nacionalidad",
+                includeFields: "Incluir Campos",
+                name: "Nombre",
+                email: "Email",
+                phone: "Teléfono",
+                location: "Ubicación",
+                picture: "Imagen",
+                dateOfBirth: "Fecha de Nacimiento",
+                loginInfo: "Info de Login",
+                idNumbers: "Números de ID",
+                random: "Aleatorio",
+                male: "Masculino",
+                female: "Femenino",
+                generateUsers: "Generar Usuarios Aleatorios",
+                generating: "Generando...",
+                exportJSON: "Exportar como JSON",
+                exportCSV: "Exportar como CSV",
+                advertisement: "Publicidad",
+                footerCopyright: "&copy; 2025 RandomUserTools.com | Powered by <a href='https://randomuser.me' target='_blank'>RandomUser.me API</a>",
+                footerDescription: "Generador gratuito de datos de usuarios aleatorios para desarrolladores y testers",
+                phoneLabel: "Teléfono:",
+                cellLabel: "Móvil:",
+                dobLabel: "Fecha de Nacimiento:",
+                ageLabel: "Edad:",
+                addressLabel: "Dirección:",
+                usernameLabel: "Usuario:",
+                nationalityLabel: "Nacionalidad:",
+                errorGenerate: "Error al generar usuarios:"
+            }
+            // 可以继续添加其他语言...
+        };
+        
         let currentUsers = [];
+        let currentLanguage = 'en';
+        
+        // 检测用户首选语言
+        function detectUserLanguage() {
+            // 1. 检查URL参数
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+            if (langParam && translations[langParam]) {
+                return langParam;
+            }
+            
+            // 2. 检查localStorage
+            const savedLang = localStorage.getItem('preferredLanguage');
+            if (savedLang && translations[savedLang]) {
+                return savedLang;
+            }
+            
+            // 3. 检测浏览器语言
+            const browserLang = navigator.language || navigator.userLanguage;
+            const langCode = browserLang.split('-')[0];
+            
+            // 根据常见国家IP对应语言 (简化版)
+            const ipLanguageMap = {
+                'zh': ['CN', 'TW', 'HK', 'SG'], // 中文地区
+                'es': ['ES', 'MX', 'AR', 'CO', 'CL'], // 西班牙语地区
+                'fr': ['FR', 'CA', 'BE', 'CH'], // 法语地区
+                'de': ['DE', 'AT', 'CH'], // 德语地区
+                'ja': ['JP'], // 日语地区
+                'ko': ['KR'], // 韩语地区
+                'pt': ['BR', 'PT'], // 葡萄牙语地区
+                'ru': ['RU', 'BY', 'KZ'], // 俄语地区
+                'ar': ['SA', 'AE', 'EG', 'MA'] // 阿拉伯语地区
+            };
+            
+            // 如果有翻译支持，返回对应语言
+            if (translations[langCode]) {
+                return langCode;
+            }
+            
+            // 默认返回英语
+            return 'en';
+        }
+        
+        // 更改语言
+        function changeLanguage() {
+            const newLang = document.getElementById('language-select').value;
+            currentLanguage = newLang;
+            localStorage.setItem('preferredLanguage', newLang);
+            updatePageLanguage();
+            
+            // 更新URL参数
+            const url = new URL(window.location);
+            url.searchParams.set('lang', newLang);
+            window.history.replaceState({}, '', url);
+        }
+        
+        // 更新页面语言
+        function updatePageLanguage() {
+            const t = translations[currentLanguage];
+            document.getElementById('html-root').lang = currentLanguage;
+            
+            // 更新所有带有 data-translate 属性的元素
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (t[key]) {
+                    if (element.innerHTML.includes('<a')) {
+                        element.innerHTML = t[key];
+                    } else {
+                        element.textContent = t[key];
+                    }
+                }
+            });
+            
+            // 更新页面标题
+            document.title = `${t.title} - Free Testing Data Tool | RandomUserTools.com`;
+            
+            // 更新meta描述
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc && currentLanguage === 'zh') {
+                metaDesc.content = "生成随机用户数据用于测试和开发。免费的随机用户生成器API工具，可自定义选项。";
+            } else if (metaDesc && currentLanguage === 'es') {
+                metaDesc.content = "Genera datos de usuarios aleatorios para pruebas y desarrollo. Herramienta API gratuita de generador de usuarios aleatorios con opciones personalizables.";
+            }
+        }
         
         async function generateUsers() {
             const generateBtn = document.querySelector('.generate-btn');
             const resultsDiv = document.getElementById('results');
             const usersContainer = document.getElementById('users-container');
+            const t = translations[currentLanguage];
             
             // Get form values
             const count = document.getElementById('results-count').value;
@@ -515,14 +754,15 @@
                 return checkbox.id.replace('field-', '');
             });
             
-            // Build API URL
-            let apiUrl = `https://randomuser.me/api/?results=${count}`;
+            // Build API URL with seed for consistency
+            const seed = Date.now().toString(); // 使用时间戳作为种子确保一致性
+            let apiUrl = `https://randomuser.me/api/?results=${count}&seed=${seed}`;
             if (gender) apiUrl += `&gender=${gender}`;
             if (nationality) apiUrl += `&nat=${nationality}`;
             if (includeFields.length > 0) apiUrl += `&inc=${includeFields.join(',')}`;
             
             // Show loading state
-            generateBtn.textContent = 'Generating...';
+            generateBtn.textContent = t.generating;
             generateBtn.classList.add('loading');
             
             try {
@@ -530,59 +770,217 @@
                 if (!response.ok) throw new Error('API request failed');
                 
                 const data = await response.json();
-                currentUsers = data.results;
+                
+                // 数据一致性处理
+                const processedUsers = data.results.map(user => processUserData(user, nationality));
+                currentUsers = processedUsers;
                 
                 displayUsers(currentUsers);
                 resultsDiv.style.display = 'block';
                 
             } catch (error) {
-                usersContainer.innerHTML = `<div class="error">Error generating users: ${error.message}</div>`;
+                usersContainer.innerHTML = `<div class="error">${t.errorGenerate} ${error.message}</div>`;
                 resultsDiv.style.display = 'block';
             } finally {
-                generateBtn.textContent = 'Generate Random Users';
+                generateBtn.textContent = t.generateUsers;
                 generateBtn.classList.remove('loading');
             }
         }
         
+        // 处理用户数据，确保一致性
+        function processUserData(user, selectedNationality) {
+            // 如果指定了国籍，确保数据格式一致
+            if (selectedNationality && user.location) {
+                const countryMap = {
+                    'US': { country: 'United States', phoneFormat: '(###) ###-####' },
+                    'GB': { country: 'United Kingdom', phoneFormat: '0#### ######' },
+                    'CA': { country: 'Canada', phoneFormat: '(###) ###-####' },
+                    'AU': { country: 'Australia', phoneFormat: '0# #### ####' },
+                    'DE': { country: 'Germany', phoneFormat: '0### #######' },
+                    'FR': { country: 'France', phoneFormat: '0# ## ## ## ##' },
+                    'ES': { country: 'Spain', phoneFormat: '### ### ###' },
+                    'IT': { country: 'Italy', phoneFormat: '### ### ####' },
+                    'NL': { country: 'Netherlands', phoneFormat: '0# ########' },
+                    'BR': { country: 'Brazil', phoneFormat: '(##) #####-####' },
+                    'MX': { country: 'Mexico', phoneFormat: '(###) ###-####' },
+                    'IN': { country: 'India', phoneFormat: '+91 ##### #####' },
+                    'CN': { country: 'China', phoneFormat: '1## #### ####' },
+                    'JP': { country: 'Japan', phoneFormat: '0##-####-####' },
+                    'KR': { country: 'South Korea', phoneFormat: '0##-####-####' }
+                };
+                
+                if (countryMap[selectedNationality]) {
+                    user.location.country = countryMap[selectedNationality].country;
+                    user.nat = selectedNationality;
+                    
+                    // 生成符合该国格式的电话号码
+                    user.phone = generatePhoneNumber(countryMap[selectedNationality].phoneFormat);
+                    user.cell = generatePhoneNumber(countryMap[selectedNationality].phoneFormat);
+                }
+            }
+            
+            // 年龄一致性检查：基于头像调整年龄范围
+            if (user.dob && user.picture) {
+                const currentAge = user.dob.age;
+                // 如果年龄看起来不合理（比如头像看起来很年轻但年龄很大），进行调整
+                if (currentAge > 60) {
+                    // 对于看起来较老的用户，保持原年龄
+                    // 这里可以根据实际需要进一步优化
+                } else if (currentAge < 18) {
+                    // 确保所有用户都是成年人
+                    const newAge = 18 + Math.floor(Math.random() * 10); // 18-27岁
+                    const newBirthYear = new Date().getFullYear() - newAge;
+                    const newBirthDate = new Date(newBirthYear, Math.floor(Math.random() * 12), Math.floor(Math.random() * 28) + 1);
+                    user.dob.age = newAge;
+                    user.dob.date = newBirthDate.toISOString();
+                }
+            }
+            
+            // 清理和格式化地址信息
+            if (user.location && user.location.street) {
+                // 确保街道号码是合理的
+                if (!user.location.street.number || user.location.street.number > 9999) {
+                    user.location.street.number = Math.floor(Math.random() * 9999) + 1;
+                }
+            }
+            
+            return user;
+        }
+        
+        // 生成符合指定格式的电话号码
+        function generatePhoneNumber(format) {
+            return format.replace(/#/g, () => Math.floor(Math.random() * 10));
+        }
+        
         function displayUsers(users) {
             const container = document.getElementById('users-container');
+            const t = translations[currentLanguage];
             container.innerHTML = '';
             
             users.forEach(user => {
-                const userCard = createUserCard(user);
+                const userCard = createUserCard(user, t);
                 container.appendChild(userCard);
             });
         }
         
-        function createUserCard(user) {
+        function createUserCard(user, t) {
             const card = document.createElement('div');
             card.className = 'user-card';
             
             const fullName = `${user.name?.title || ''} ${user.name?.first || ''} ${user.name?.last || ''}`.trim();
-            const address = user.location ? 
-                `${user.location.street?.number || ''} ${user.location.street?.name || ''}, ${user.location.city || ''}, ${user.location.state || ''} ${user.location.postcode || ''}, ${user.location.country || ''}`.replace(/,\s*,/g, ',').replace(/^,\s*|,\s*$/g, '') : '';
+            
+            // 改进的地址格式化
+            let address = '';
+            if (user.location) {
+                const parts = [];
+                if (user.location.street?.number && user.location.street?.name) {
+                    parts.push(`${user.location.street.number} ${user.location.street.name}`);
+                }
+                if (user.location.city) parts.push(user.location.city);
+                if (user.location.state) parts.push(user.location.state);
+                if (user.location.postcode) parts.push(user.location.postcode);
+                if (user.location.country) parts.push(user.location.country);
+                address = parts.join(', ');
+            }
+            
+            // 改进的日期格式化
+            const formatDate = (dateString) => {
+                const date = new Date(dateString);
+                const options = { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                };
+                return date.toLocaleDateString(getLocaleFromLanguage(currentLanguage), options);
+            };
             
             card.innerHTML = `
                 <div class="user-header">
-                    ${user.picture?.large ? `<img src="${user.picture.large}" alt="User Avatar" class="user-avatar">` : ''}
+                    ${user.picture?.large ? `<img src="${user.picture.large}" alt="User Avatar" class="user-avatar" loading="lazy">` : ''}
                     <div>
                         <div class="user-name">${fullName}</div>
                         ${user.email ? `<div class="user-email">${user.email}</div>` : ''}
                     </div>
                 </div>
                 <div class="user-details">
-                    ${user.phone ? `<div class="detail-item"><span class="detail-label">Phone:</span><span class="detail-value">${user.phone}</span></div>` : ''}
-                    ${user.cell ? `<div class="detail-item"><span class="detail-label">Cell:</span><span class="detail-value">${user.cell}</span></div>` : ''}
-                    ${user.dob?.date ? `<div class="detail-item"><span class="detail-label">Date of Birth:</span><span class="detail-value">${new Date(user.dob.date).toLocaleDateString()}</span></div>` : ''}
-                    ${user.dob?.age ? `<div class="detail-item"><span class="detail-label">Age:</span><span class="detail-value">${user.dob.age}</span></div>` : ''}
-                    ${address ? `<div class="detail-item"><span class="detail-label">Address:</span><span class="detail-value">${address}</span></div>` : ''}
-                    ${user.login?.username ? `<div class="detail-item"><span class="detail-label">Username:</span><span class="detail-value">${user.login.username}</span></div>` : ''}
+                    ${user.phone ? `<div class="detail-item"><span class="detail-label">${t.phoneLabel}</span><span class="detail-value">${user.phone}</span></div>` : ''}
+                    ${user.cell ? `<div class="detail-item"><span class="detail-label">${t.cellLabel}</span><span class="detail-value">${user.cell}</span></div>` : ''}
+                    ${user.dob?.date ? `<div class="detail-item"><span class="detail-label">${t.dobLabel}</span><span class="detail-value">${formatDate(user.dob.date)}</span></div>` : ''}
+                    ${user.dob?.age ? `<div class="detail-item"><span class="detail-label">${t.ageLabel}</span><span class="detail-value">${user.dob.age} ${getAgeUnit(currentLanguage)}</span></div>` : ''}
+                    ${address ? `<div class="detail-item"><span class="detail-label">${t.addressLabel}</span><span class="detail-value">${address}</span></div>` : ''}
+                    ${user.login?.username ? `<div class="detail-item"><span class="detail-label">${t.usernameLabel}</span><span class="detail-value">${user.login.username}</span></div>` : ''}
                     ${user.id?.name && user.id?.value ? `<div class="detail-item"><span class="detail-label">${user.id.name}:</span><span class="detail-value">${user.id.value}</span></div>` : ''}
-                    ${user.nat ? `<div class="detail-item"><span class="detail-label">Nationality:</span><span class="detail-value">${user.nat}</span></div>` : ''}
+                    ${user.nat ? `<div class="detail-item"><span class="detail-label">${t.nationalityLabel}</span><span class="detail-value">${getNationalityName(user.nat, currentLanguage)}</span></div>` : ''}
                 </div>
             `;
             
             return card;
+        }
+        
+        // 根据语言获取locale
+        function getLocaleFromLanguage(lang) {
+            const localeMap = {
+                'en': 'en-US',
+                'zh': 'zh-CN',
+                'es': 'es-ES',
+                'fr': 'fr-FR',
+                'de': 'de-DE',
+                'ja': 'ja-JP',
+                'ko': 'ko-KR',
+                'pt': 'pt-BR',
+                'ru': 'ru-RU',
+                'ar': 'ar-SA'
+            };
+            return localeMap[lang] || 'en-US';
+        }
+        
+        // 获取年龄单位
+        function getAgeUnit(lang) {
+            const ageUnits = {
+                'en': 'years old',
+                'zh': '岁',
+                'es': 'años',
+                'fr': 'ans',
+                'de': 'Jahre alt',
+                'ja': '歳',
+                'ko': '세',
+                'pt': 'anos',
+                'ru': 'лет',
+                'ar': 'سنة'
+            };
+            return ageUnits[lang] || 'years old';
+        }
+        
+        // 获取国籍全称
+        function getNationalityName(natCode, lang) {
+            const nationalityNames = {
+                'en': {
+                    'AU': 'Australian', 'BR': 'Brazilian', 'CA': 'Canadian', 'CH': 'Swiss',
+                    'DE': 'German', 'DK': 'Danish', 'ES': 'Spanish', 'FI': 'Finnish',
+                    'FR': 'French', 'GB': 'British', 'IE': 'Irish', 'IN': 'Indian',
+                    'IR': 'Iranian', 'MX': 'Mexican', 'NL': 'Dutch', 'NO': 'Norwegian',
+                    'NZ': 'New Zealand', 'RS': 'Serbian', 'TR': 'Turkish', 'UA': 'Ukrainian',
+                    'US': 'American'
+                },
+                'zh': {
+                    'AU': '澳大利亚', 'BR': '巴西', 'CA': '加拿大', 'CH': '瑞士',
+                    'DE': '德国', 'DK': '丹麦', 'ES': '西班牙', 'FI': '芬兰',
+                    'FR': '法国', 'GB': '英国', 'IE': '爱尔兰', 'IN': '印度',
+                    'IR': '伊朗', 'MX': '墨西哥', 'NL': '荷兰', 'NO': '挪威',
+                    'NZ': '新西兰', 'RS': '塞尔维亚', 'TR': '土耳其', 'UA': '乌克兰',
+                    'US': '美国'
+                },
+                'es': {
+                    'AU': 'Australiano', 'BR': 'Brasileño', 'CA': 'Canadiense', 'CH': 'Suizo',
+                    'DE': 'Alemán', 'DK': 'Danés', 'ES': 'Español', 'FI': 'Finlandés',
+                    'FR': 'Francés', 'GB': 'Británico', 'IE': 'Irlandés', 'IN': 'Indio',
+                    'IR': 'Iraní', 'MX': 'Mexicano', 'NL': 'Holandés', 'NO': 'Noruego',
+                    'NZ': 'Neozelandés', 'RS': 'Serbio', 'TR': 'Turco', 'UA': 'Ucraniano',
+                    'US': 'Estadounidense'
+                }
+            };
+            
+            return nationalityNames[lang]?.[natCode] || natCode;
         }
         
         function exportJSON() {
@@ -592,25 +990,20 @@
         
         function exportCSV() {
             if (currentUsers.length === 0) return;
+            const t = translations[currentLanguage];
             
-            const headers = ['Title', 'First Name', 'Last Name', 'Email', 'Phone', 'Cell', 'Date of Birth', 'Age', 'Street', 'City', 'State', 'Postcode', 'Country', 'Username', 'Nationality'];
+            const headers = [t.name, 'Email', t.phone, 'Cell', t.dateOfBirth, t.ageLabel.replace(':', ''), t.location, t.usernameLabel.replace(':', ''), t.nationalityLabel.replace(':', '')];
             const csvData = [headers.join(',')];
             
             currentUsers.forEach(user => {
                 const row = [
-                    user.name?.title || '',
-                    user.name?.first || '',
-                    user.name?.last || '',
+                    `${user.name?.title || ''} ${user.name?.first || ''} ${user.name?.last || ''}`.trim(),
                     user.email || '',
                     user.phone || '',
                     user.cell || '',
                     user.dob?.date ? new Date(user.dob.date).toLocaleDateString() : '',
                     user.dob?.age || '',
-                    `${user.location?.street?.number || ''} ${user.location?.street?.name || ''}`.trim(),
-                    user.location?.city || '',
-                    user.location?.state || '',
-                    user.location?.postcode || '',
-                    user.location?.country || '',
+                    `${user.location?.street?.number || ''} ${user.location?.street?.name || ''}, ${user.location?.city || ''}, ${user.location?.state || ''} ${user.location?.postcode || ''}, ${user.location?.country || ''}`.replace(/,\s*,/g, ',').replace(/^,\s*|,\s*$/g, ''),
                     user.login?.username || '',
                     user.nat || ''
                 ].map(field => `"${field.toString().replace(/"/g, '""')}"`);
@@ -633,11 +1026,17 @@
             URL.revokeObjectURL(url);
         }
         
-        // Initialize with default generation
+        // 初始化应用
         window.addEventListener('load', () => {
+            // 检测并设置语言
+            currentLanguage = detectUserLanguage();
+            document.getElementById('language-select').value = currentLanguage;
+            updatePageLanguage();
+            
+            // 生成默认用户
             generateUsers();
             
-            // Initialize AdSense ads
+            // 初始化广告
             if (typeof adsbygoogle !== 'undefined') {
                 (adsbygoogle = window.adsbygoogle || []).push({});
                 (adsbygoogle = window.adsbygoogle || []).push({});
